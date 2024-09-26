@@ -1,22 +1,24 @@
 'use client';
 
+import { Pokemon } from '@/types/Pokemon';
 import { useEffect, useState } from 'react';
-import SinglePokemon from './components/SinglePokemon';
 
 export default function Home() {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     const fetchPokemonList = async () => {
-      try {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
-        );
-        const data = await res.json();
-        setPokemons(data.results);
-      } catch (error) {
-        console.log(error);
-      }
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
+      );
+      const data = await res.json();
+
+      const fetchPokemonDetails = data.results.map(async (pokemon: any) => {
+        const res = await fetch(pokemon.url);
+        return res.json();
+      });
+      const pokemonDetails = await Promise.all(fetchPokemonDetails);
+      setPokemons(pokemonDetails);
     };
     fetchPokemonList();
   }, []);
@@ -25,10 +27,8 @@ export default function Home() {
     <main>
       <div>
         <ul>
-          {pokemons.map((pokemon: any) => (
-            <li key={pokemon.url}>
-              <SinglePokemon url={pokemon.url} />
-            </li>
+          {pokemons.map((pokemon: Pokemon) => (
+            <li key={pokemon.id}>{pokemon.name}</li>
           ))}
         </ul>
       </div>
