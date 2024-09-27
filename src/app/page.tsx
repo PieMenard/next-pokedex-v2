@@ -3,6 +3,7 @@
 import { Pokemon } from '@/types/Pokemon';
 import { useEffect, useState } from 'react';
 import Pagination from './components/Pagination';
+import PokemonCard from './components/PokemonCard';
 
 export default function Home() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -43,10 +44,10 @@ export default function Home() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <ul>
+          <ul className="flex flex-wrap">
             {pokemons.map((pokemon: Pokemon) => (
               <li key={pokemon.id}>
-                {pokemon.id}. {pokemon.name}
+                <PokemonCard pokemon={pokemon} />
               </li>
             ))}
           </ul>
