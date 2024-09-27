@@ -10,8 +10,8 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
     image_id = '0' + pokemon.id.toString();
   }
   return (
-    <div className="w-[250px] h-[350px] border-2 rounded-md m-3">
-      <div className="flex justify-between px-3 my-2 border-b-2 py-2 font-semibold">
+    <div className="w-[250px] h-[350px] border-2 border-gra rounded-md m-3 bg-gray-100">
+      <div className="flex justify-between px-3 my-2 border-b-2 border-teal-600 py-2 font-semibold ">
         <h1>{pokemon.id}</h1>
         <h1>{pokemon.name.toUpperCase()}</h1>
       </div>

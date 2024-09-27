@@ -1,14 +1,10 @@
 'use client';
 
 import { Pokemon } from '@/types/Pokemon';
-<<<<<<< HEAD
-import { useEffect, useState } from 'react';
-import Pagination from './components/Pagination';
-=======
 import { FormEvent, useEffect, useState } from 'react';
 import Pagination from './components/Pagination';
 import PokemonCard from './components/PokemonCard';
->>>>>>> fd3a74e2ff3d1432095a08f61aa55781fd2d5734
+import SearchBox from './components/SearchBox';
 
 export default function Home() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -22,13 +18,6 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPokemonList = async () => {
-<<<<<<< HEAD
-      const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-      );
-      const data = await res.json();
-      setTotalResults(data.count);
-=======
       setLoading(true);
       try {
         if (newSearch != '') {
@@ -46,7 +35,6 @@ export default function Home() {
           const res = await fetch(
             `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
           );
->>>>>>> fd3a74e2ff3d1432095a08f61aa55781fd2d5734
 
           const data = await res.json();
           setTotalResults(data.count);
@@ -77,23 +65,11 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center">
       <h1 className="font-bold my-5 text-2xl text-teal-800">PokeDex v2</h1>
-      <div>
-        <form onSubmit={handleSearch}>
-          <input
-            placeholder="Search..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-<<<<<<< HEAD
-      <Pagination
-        limit={limit}
-        offset={offset}
-        setOffset={setOffset}
-        totalResults={totalResults}
-=======
+      <SearchBox
+        query={query}
+        setQuery={setQuery}
+        handleSearch={handleSearch}
+      />
       <div>
         {loading ? (
           <p>Loading...</p>
@@ -119,7 +95,6 @@ export default function Home() {
         totalResults={totalResults}
         setOffset={setOffset}
         loading={loading}
->>>>>>> fd3a74e2ff3d1432095a08f61aa55781fd2d5734
       />
     </main>
   );
