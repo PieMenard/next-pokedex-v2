@@ -25,7 +25,7 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
       />
       <div className="text-center py-2">
         {pokemon.types.map((item: TypeData) => (
-          <p>{item.type.name}</p>
+          <p key={item.type.name}>{item.type.name}</p>
         ))}
       </div>
     </div>
