@@ -2,6 +2,7 @@
 
 import { Pokemon } from '@/types/Pokemon';
 import { useEffect, useState } from 'react';
+import Pagination from './components/Pagination';
 
 export default function Home() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -16,8 +17,6 @@ export default function Home() {
       );
       const data = await res.json();
       setTotalResults(data.count);
-      console.log(totalResults);
-      console.log(offset);
 
       const fetchPokemonDetails = data.results.map(async (pokemon: any) => {
         const res = await fetch(pokemon.url);
@@ -41,22 +40,12 @@ export default function Home() {
           ))}
         </ul>
       </div>
-      <div className="my-4">
-        <button
-          onClick={() => setOffset(offset - limit)}
-          disabled={offset === 0}
-          className="mx-4 bg-teal-800 text-white rounded-lg disabled:opacity-40 px-2"
-        >
-          Prev
-        </button>
-        <button
-          onClick={() => setOffset(offset + limit)}
-          disabled={offset >= totalResults - limit}
-          className="mx-4 bg-teal-800 text-white rounded-lg disabled:opacity-40 px-2"
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        limit={limit}
+        offset={offset}
+        setOffset={setOffset}
+        totalResults={totalResults}
+      />
     </main>
   );
 }
