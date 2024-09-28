@@ -8,6 +8,8 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
     imageId = '00' + pokemon.id.toString();
   } else if (imageId.length === 2) {
     imageId = '0' + pokemon.id.toString();
+  } else if (imageId.length > 4) {
+    imageId = '0000';
   }
   return (
     <div className="w-[250px] h-[350px] border-2 border-gra rounded-md m-3 bg-gray-100">
