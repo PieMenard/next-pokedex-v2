@@ -14,8 +14,8 @@ datasource db {
 }
 
 model Ability {
-  id             Int    @id @default(autoincrement())
-  is_main_series String
+  id             Int     @id @default(autoincrement())
+  is_main_series Boolean
   name           String
   language       String
 }
