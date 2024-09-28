@@ -14,8 +14,20 @@ datasource db {
 }
 
 model Ability {
-  id             Int     @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   is_main_series Boolean
   name           String
   language       String
+  pokemon        Pokemon[] @relation("PokemonAbilities")
+}
+
+model Pokemon {
+  id              Int       @id @default(autoincrement())
+  base_experience Int
+  height          Int
+  is_default      Boolean
+  name            String
+  order           Int
+  weight          Int
+  abilities       Ability[] @relation("PokemonAbilities")
 }
