@@ -42,3 +42,22 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ success: false, error: error });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const id = parseInt(req.url.split('/abilities/')[1]);
+
+    const ability = await prisma.ability.delete({
+      where: {
+        id,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: `deleted ${ability.name}`,
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error });
+  }
+}
