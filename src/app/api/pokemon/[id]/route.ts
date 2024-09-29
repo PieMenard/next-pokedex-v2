@@ -88,3 +88,19 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const id = parseInt(req.url.split('/pokemon/')[1]);
+    const pokemon = await prisma.pokemon.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: `deleted ${pokemon.name}`,
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error });
+  }
+}
