@@ -27,3 +27,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 }
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const offset = parseInt(searchParams.get('offset') || '0');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const pokemonList = await prisma.pokemon.findMany({
+      select: {
+        name: true,
+        id: true,
+      },
+      take: limit,
+      skip: offset,
+    });
+    const results = {
+      offset: offset,
+      limit: limit,
+      results: pokemonList,
+    };
+    return NextResponse.json({ success: true, data: results });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error });
+  }
+}
