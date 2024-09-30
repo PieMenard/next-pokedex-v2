@@ -1,6 +1,8 @@
+import { cn } from '@/lib/utils';
 import { Pokemon } from '@/types/Pokemon';
 import { TypeData } from '@/types/Type';
 import Image from 'next/image';
+cn;
 
 const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
   let imageId = pokemon.id.toString();
@@ -31,7 +33,19 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
       />
       <div className="text-center py-2">
         {pokemon.types.map((item: TypeData) => (
-          <p key={item.type.name}>{item.type.name}</p>
+          <p
+            key={item.type.name}
+            className={cn(
+              'rounded-lg text-white mx-8 my-1 bg-slate-400',
+              item.type.name === 'grass' && 'bg-green-600',
+              item.type.name === 'fire' && 'bg-orange-700',
+              item.type.name === 'poison' && 'bg-purple-600',
+              item.type.name === 'water' && 'bg-sky-500',
+              item.type.name === 'bug' && 'bg-indigo-700'
+            )}
+          >
+            {item.type.name}
+          </p>
         ))}
       </div>
     </div>
